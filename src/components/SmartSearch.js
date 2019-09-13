@@ -20,7 +20,7 @@ class SmartSearch extends React.Component{
       return(
         <div className="search-container">
           <form onSubmit={this.handleSubmit}>
-            <input type="text" onKeyUp={this.handleChange}/>
+            <input type="text" onKeyUp={this.handleChange} placeholder="Buscar..."/>
             <input type="submit" value="Buscar" />
           </form>
         </div>

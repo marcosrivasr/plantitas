@@ -72,6 +72,21 @@ app.get('/delete/:id', (req, res) =>{
     });
 });
 
+app.post('/add-stage/', (req, res) =>{
+    const id = req.body.id;
+    const stage = req.body.stage;
+    const date = req.body.date;
+
+    Planta.findOneAndUpdate(
+        {_id: id},
+        {$push: {stages: {stage: stage, date: date}}},
+        (err, success) =>{
+            console.log(success);
+        }
+    );
+
+});
+
 app.listen(PORT, () =>{
     console.log('Servidor backend listo...');
 });

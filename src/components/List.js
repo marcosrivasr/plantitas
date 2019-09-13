@@ -1,5 +1,5 @@
 import React from 'react';
-import Item from './Item'
+import Item from './Item';
 
 class List extends React.Component{
 
@@ -19,10 +19,11 @@ class List extends React.Component{
             {
               this.props.list.map(item => 
                 <Item 
+                  key={item.id}
                   id={item.id}
                   name={item.name} 
                   date={item.date}
-                  key={item.id}
+                  stage={item.stages[item.stages.length-1].stage}
                   onDeleteItem={this.onDeleteItem}
                    />
               )

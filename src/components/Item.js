@@ -1,6 +1,7 @@
 
 import Placeholder from '../planta.jpg'
 import React from 'react';
+import Stage from './Stage';
 
 class Item extends React.Component{
     constructor(props){
@@ -56,7 +57,7 @@ class Item extends React.Component{
           <div>{this.days_between(new Date(this.props.date), new Date())} days</div>
           <img src={Placeholder}  width="200" alt="" />
           <div>Riego: </div>
-          <div>Etapa: </div>
+          <div>Etapa: <Stage stage={this.props.stage} /></div>
           <a href={'/ver-planta/' + this.props.id}>Ver detalle</a>
         </div>
       );

@@ -14,7 +14,6 @@ const routing = (
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/nueva-planta">Nuevo</a></li>
-                <li>Home</li>
             </ul>
             <div className="boton-fl"><a href="/nueva-planta">+</a></div>
         </div>
