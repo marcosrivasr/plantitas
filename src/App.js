@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 
-import SmartSearch from './SmartSearch'
-import List from './List'
+import SmartSearch from './components/SmartSearch'
+import List from './components/List'
 
 
 
@@ -12,44 +12,75 @@ class App extends React.Component{
     super(props);
     this.state = {
       //plantas: ['girasol', 'tomate', 'serrano', 'lechuga', 'menta', 'lavanda', 'tuna', 'albahaca'],
-      plantas: [
-        {id: 0, name:'girasol', days:20},
-        {id: 0, name:'tomate', days:20},
-        {id: 0, name:'serrano', days:20},
-        {id: 0, name:'lechuga', days:20},
-        {id: 0, name:'menta', days:20},
-        {id: 0, name:'lavanda', days:20},
-        {id: 0, name:'tuna', days:20}
-      ],
+      plantas: [],
       copia:[]
     };
   }
 
-  componentDidMount(){
+  async componentDidMount(){
+    const plantas = await this.loadPlantitas(); 
+    this.setState({plantas: [...plantas]});
     this.setState({copia: [...this.state.plantas]});
+
+    console.log(this.state.plantas);
   }
 
-  actualizarLista = (query) =>{
+  async loadPlantitas(){
+    const res = await fetch('http://localhost:3001/get', {method: 'GET', 'Content-type': 'text/json'})
+    .then(res => res.json());
+
+    return res;
+  }
+
+  onSearch = (query) =>{
     if(query.trim() === ''){
       this.setState({copia: [...this.state.plantas]}); //se clona si no ha busqueda
     }else{
       let datos = this.state.plantas.filter(item =>{
-        return item.name.includes(query);
+        return item.name.toLowerCase().includes(query.toLowerCase());
       });
       this.setState({copia: [...datos]}); //se filtra
     }
   }
+
+  onUpdateData = (data) =>{
+    switch(data.action){
+      case 'delete':
+          this.removeItem(data);
+        break;
+    }
+  }
+
+  removeItem = (item) =>{
+    const temp = [...this.state.plantas];
+    const res = this.removeItemFromArray(temp, item);
+    this.setState({plantas: [...res]});
+    this.setState({copia: [...res]});
+  }
+
+  removeItemFromArray = (array, item) =>{
+    const index = array.map(i => i.id).indexOf(item.id);
+    const newArray = [...array];
+    newArray.splice(index, 1);
+    return newArray;
+  }
+
+  
 
   render(){
     return (
       <div className="main-container">
         <SmartSearch 
           list={this.state.copia}
-          onSearch={this.actualizarLista} />
+          onSearch={this.onSearch} />
           
-        <List list={this.state.copia}/>
+        <List 
+          list={this.state.copia}
+          onUpdateData={this.onUpdateData}/>
       </div>
     );
   }
 }
+
+
 export default App;

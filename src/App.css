@@ -1,17 +1,58 @@
+body{
+  padding: 0;
+  margin: 0;
+}
+.menu-container{
+  background: black;
+}
+
+.menu-container ul{
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+.menu-container ul li{
+  display: inline;
+}
+.menu-container ul li a{
+  color: white;
+  padding: 10px;
+  display: inline-block;
+}
+
+.boton-fl{
+  font-size: 20px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: black;
+  position: fixed;
+  color: white;
+  right: 20px;
+  bottom: 20px;
+}
+.boton-fl a{
+  color: white;
+  padding: 20px 25px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.main-container{
+  margin: 0 auto;
+  width: 900px;
+}
+
 .item{
   display: inline-block;
-  width: 150px;
-  background: red;
+  width: 250px;
   text-align: center;
+}
+.item:hover{
+  background: #eee;
+  border-radius: 3px;
 }
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
 }
 
 .App-header {

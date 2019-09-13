@@ -4,14 +4,24 @@ import './index.css';
 
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import App from './App';
-import About from './components/About'
+import Nuevo from './components/Nuevaplanta'
+import DetallePlanta from './components/DetallePlanta'
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
     <Router>
+        <div className="menu-container">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/nueva-planta">Nuevo</a></li>
+                <li>Home</li>
+            </ul>
+            <div className="boton-fl"><a href="/nueva-planta">+</a></div>
+        </div>
       <div>
         <Route exact path="/" component={App} />
-        <Route path="/about" component={About} />
+        <Route path="/nueva-planta" component={Nuevo} />
+        <Route path="/ver-planta/:id" component={DetallePlanta} />
       </div>
     </Router>
   )
