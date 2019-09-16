@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 
 class SmartSearch extends React.Component{
     constructor(props){
@@ -21,7 +22,7 @@ class SmartSearch extends React.Component{
         <div className="search-container">
           <form onSubmit={this.handleSubmit}>
             <input type="text" onKeyUp={this.handleChange} placeholder="Buscar..."/>
-            <input type="submit" value="Buscar" />
+            <Button>Buscar</Button>
           </form>
         </div>
       );

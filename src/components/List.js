@@ -1,5 +1,6 @@
 import React from 'react';
 import Item from './Item';
+import CardDeck from 'react-bootstrap/CardDeck';
 
 class List extends React.Component{
 
@@ -10,14 +11,20 @@ class List extends React.Component{
     onDeleteItem = (id) =>{
       this.props.onUpdateData({action: 'delete', id: id});
     }
+    
+    getCount = () =>{
+      return this.props.list.length;
+    } 
 
     render(){
       return(
         <div>
-          <h2>{this.props.list.length} plantas en tu huerto</h2>
+          <h2>{this.getCount()} {this.getCount() === 1?'planta':'plantas'} en tu huerto</h2>
           <div className="list-container">
+            <CardDeck>
             {
-              this.props.list.map(item => 
+              this.props.list.map((item, index) => 
+              
                 <Item 
                   key={item.id}
                   id={item.id}
@@ -28,6 +35,7 @@ class List extends React.Component{
                    />
               )
             }
+            </CardDeck>
           </div>
         </div> 
       );

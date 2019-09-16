@@ -1,4 +1,5 @@
 import React from 'react';
+import Configuration from '../config';
 
 class NuevaPlanta extends React.Component{
 
@@ -14,7 +15,7 @@ class NuevaPlanta extends React.Component{
 
     handleSubmit = (e) =>{
         e.preventDefault();
-        fetch('http://localhost:3001/add', 
+        fetch(Configuration.url + '/add', 
             {
                 method: 'POST', 
                 headers: {

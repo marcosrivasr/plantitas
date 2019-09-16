@@ -1,6 +1,9 @@
 import React from 'react';
-import placeholder from '../planta.jpg';
 import Stage from './Stage';
+import DateFormat from './DateFormat';
+import DaysBetween from './DaysBetween';
+
+import placeholder from '../planta.jpg';
 
 class DetallePlanta extends React.Component{
     constructor(props){
@@ -57,6 +60,8 @@ class DetallePlanta extends React.Component{
         });
     }
 
+    
+
     render(){
         return(
             <div className="main-container detalle-container">
@@ -70,7 +75,7 @@ class DetallePlanta extends React.Component{
                         this.state.stages.map(item =>
                             <ul key={item.stage + item.date + (Math.random()*100)}>
                                 <li><Stage stage={item.stage} /></li>
-                                <li>{item.date}</li>
+                                <li><DateFormat date={item.date} /> (<DaysBetween startDate={new Date(item.date)} endDate={new Date()} /> días)</li>
                             </ul>
                         )
                     }
@@ -85,6 +90,8 @@ class DetallePlanta extends React.Component{
                             <option value="4">Hojas verdaderas</option>
                         </select>
                         <input type="date" name="new_date" onChange={this.handleChange} />
+                        <input type="file"/>
+                        <textarea />
 
                         <button onClick={this.onClick}>Añadir</button>
                     </div>

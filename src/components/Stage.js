@@ -31,7 +31,6 @@ class Stage extends React.Component{
     render(){
         return(
             <span>{this.getStage(this.props.stage)}</span>
-            /*<span>{this.props.stage}</span>*/
         );
     }
 }

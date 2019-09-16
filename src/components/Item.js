@@ -2,6 +2,10 @@
 import Placeholder from '../planta.jpg'
 import React from 'react';
 import Stage from './Stage';
+import DaysBetween from './DaysBetween';
+import Dropdown from 'react-bootstrap/Dropdown'
+
+import Configuration from '../config.js';
 
 class Item extends React.Component{
     constructor(props){
@@ -16,7 +20,7 @@ class Item extends React.Component{
       //this.props.onDeleteItem(this.props.id);
       const dialog = window.confirm('Estás seguro de eliminar la plantita?');
       if(dialog === true){
-        fetch('http://localhost:3001/delete/' + this.props.id)
+        fetch(Configuration.url + '/delete/' + this.props.id)
         .then(res => res.text())
         .then(response => {
           alert(response);
@@ -31,34 +35,50 @@ class Item extends React.Component{
         isToogleOn : !state.isToogleOn
       }));
     }
-    
-    days_between(date1, date2) {
-
-      // The number of milliseconds in one day
-      var ONE_DAY = 1000 * 60 * 60 * 24;
-  
-      // Convert both dates to milliseconds
-      var date1_ms = date1.getTime();
-      var date2_ms = date2.getTime();
-  
-      // Calculate the difference in milliseconds
-      var difference_ms = Math.abs(date2_ms - date1_ms);
-  
-      // Convert back to days and return
-      return Math.round(difference_ms/ONE_DAY) - 1;
-  
-  }
   
     render(){
       return(
+        /*
+        <Card style={{maxWidth: "255px", marginBottom: "15px", flex: "1 0 15%" }}>
+          <Card.Header>
+            <Card.Title style={{fontWeight: "bolder"}}>{this.props.name}</Card.Title>
+          </Card.Header>
+          <a href={'/ver-planta/' + this.props.id}>
+          <Card.Img variant="top" src={Placeholder} />
+          </a>
+          
+          <ListGroup className="list-group-flush">
+            <ListGroupItem>Edad: {this.days_between(new Date(this.props.date), new Date())} días</ListGroupItem>
+            <ListGroupItem>Etapa: <Stage stage={this.props.stage} /></ListGroupItem>
+            <ListGroupItem>Riego: cada 2 días</ListGroupItem>
+            <ListGroupItem>
+            <Dropdown className="text-center">
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Acciones
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href={'/ver-planta/' + this.props.id}>Ver detalle</Dropdown.Item>
+                <Dropdown.Item onClick={this.handleDelete}>Eliminar</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            </ListGroupItem>
+          </ListGroup>
+        </Card>
+        */
         <div className="item">
-          <a onClick={this.handleDelete}>Eliminar</a>
-          <h3>{this.props.name}</h3>
-          <div>{this.days_between(new Date(this.props.date), new Date())} days</div>
-          <img src={Placeholder}  width="200" alt="" />
-          <div>Riego: </div>
-          <div>Etapa: <Stage stage={this.props.stage} /></div>
-          <a href={'/ver-planta/' + this.props.id}>Ver detalle</a>
+          <div className="title">{this.props.name}</div>
+          <div className="image">
+            <a href={'/ver-planta/' + this.props.id}>
+            <img src={Placeholder} width="100%" />
+            </a>
+          </div>
+          <div className="list-group-container">
+            <div className="list-group-section">Edad: <DaysBetween startDate={new Date(this.props.date)} endDate={new Date()} /> días</div>
+            <div className="list-group-section">Etapa: <Stage stage={this.props.stage} /></div>
+            <div className="list-group-section">Riego: cada 2 días</div>
+          </div>
         </div>
       );
     }
