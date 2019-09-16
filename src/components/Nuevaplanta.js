@@ -25,7 +25,8 @@ class NuevaPlanta extends React.Component{
                     name: this.state.name,
                     type: this.state.type,
                     stage: this.state.stage,
-                    date: this.state.date
+                    date: this.state.date,
+                    image: this.state.image
                 })
             })
         .then(res => res.json())
@@ -44,10 +45,10 @@ class NuevaPlanta extends React.Component{
     render(){
         return(
             <div id="main-container">
-                <form onSubmit={this.handleSubmit} method="POST">
+                <form action="http://localhost:3001/add" method="post" encType="multipart/form-data">
                     <p>
                         Nombre de planta: <br/>
-                        <input type="text" name="name" onKeyUp={this.handleChange} />
+                        <input type="text" name="name" onKeyUp={this.handleChange} autoComplete="off" />
                     </p>
                     <p>
                         Tipo de planta: <br/>
@@ -66,6 +67,10 @@ class NuevaPlanta extends React.Component{
                     <p>
                         Fecha: <br/>
                         <input type="date" name="date" onChange={this.handleChange} />
+                    </p>
+                    <p>
+                        Imagen: <br/>
+                        <input type="file" name="image" onChange={this.handleChange} />
                     </p>
                     <p>
                         <input type="submit" />
