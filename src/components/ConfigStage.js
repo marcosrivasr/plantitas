@@ -8,46 +8,32 @@ class ConfigStage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            isOpen: false,
-            name: '',
-            date: '',
-            type: '',
-            stages: [],
+            isOpen: false, // para controlar la UI
             new_stage: 0,
             new_date: '',
-            comment: '',
-            image: null,
+            new_comment: '',
             new_image: null
         };
     }
 
     componentDidMount(){
-        const id = this.props.itemId;
-        fetch(Configuration.url + '/get/' + id)
-        .then(res => res.json())
-        .then(data => {
-            this.setState({
-                id: id,
-                name: data.name,
-                date: data.date,
-                type: data.type,
-                stages: data.stages
-            });
-        })
-        .catch(err => console.error(err));
     }
 
+    // open or close dialog
     onClick = (e) =>{
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
 
+    // handle key:value in the inputs
     handleChange = (e) =>{
         this.setState({
                 [e.target.name]: e.target.value
         });
     }
+
+    // handle file input
     handleFile = (e) =>{
         this.setState({
             [e.target.name]: e.target.files[0]
@@ -55,33 +41,38 @@ class ConfigStage extends React.Component{
     }
 
     onClickSubmit = () =>{
-        const stage = this.state.new_stage;
-        const date = this.state.new_date;
+        // we get the values of state
+        const newStage = this.state.new_stage;
+        const newDate = this.state.new_date;
+        const newComment = this.state.new_comment;
+        const newImage = this.state.new_image;
 
-        const stages = [...this.state.stages];
-        const newObject = {stage: stage, date: date};
-        
-        //añadimos el nuevo objeto al arreglo de etapas
-        stages.push(newObject);
+        // create a new object with those values
+        const newObject = {
+            stage: newStage, 
+            date: newDate, 
+            comment: newComment, 
+            image: newImage
+        };
 
-        //datos para la solicitud http
+        // append those values for the http request
         const formData = new FormData();
-        formData.append('image', this.state.new_image);
-        formData.append('id', this.state.id);
-        formData.append('stage', stage);
-        formData.append('date', date);
-        formData.append('comment', this.state.comment);
+        formData.append('image', newImage);
+        formData.append('id', this.props.itemId);
+        formData.append('stage', newStage);
+        formData.append('date', newDate);
+        formData.append('comment', newComment);
 
-        console.log(stage);
-
+        // send the http request
         fetch(Configuration.url + '/add-stage', {
             method: 'post', 
-            //body: JSON.stringify({id: this.state.id, stage: stage, date: date})
             body: formData
         })
         .then(res => res.text())
         .then(data => console.log(data));
-        this.setState({stages: stages});
+
+        // send the new object to the parent to update view
+        this.props.onAddStage(newObject);
     }
 
     render(){
@@ -94,7 +85,7 @@ class ConfigStage extends React.Component{
             <div id="config-stage-container">
                 <div className="config-stage-item"><div>Nueva etapa:</div></div>
                 <div className="config-stage-item">
-                    <textarea placeholder="Comentarios de esta etapa" name="comment" onChange={this.handleChange} />
+                    <textarea placeholder="Comentarios de esta etapa" name="new_comment" onChange={this.handleChange} />
                 </div>
                 <div className="config-stage-item">
                     <select name="new_stage" onChange={this.handleChange}>

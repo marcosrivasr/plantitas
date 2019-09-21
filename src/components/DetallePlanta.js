@@ -16,9 +16,7 @@ class DetallePlanta extends React.Component{
             name: '',
             date: '',
             type: '',
-            stages: [],
-            new_stage: 0,
-            new_date: ''
+            stages: []
         };
     }
     componentDidMount(){
@@ -59,6 +57,12 @@ class DetallePlanta extends React.Component{
         return comparison;
     }
 
+    onAddStage = (data) =>{
+        const stages = [...this.state.stages];
+        stages.push(data);
+        this.setState({stages: [...stages]});
+    }
+
     
 
     render(){
@@ -71,13 +75,18 @@ class DetallePlanta extends React.Component{
                 <div id="detalle-right-container">
                 <Tabs defaultActiveKey="stages" id="uncontrolled-tab-example">
                     <Tab eventKey="stages" title="Etapas">
-                        <ConfigStage itemId={this.props.match.params.id} />
+
+                        <ConfigStage 
+                            itemId={this.props.match.params.id} 
+                            onAddStage={this.onAddStage} />
                         
                         <div id="stages-container">
                             {
                                 this.state.stages.sort(this.compare)
                                 .map(item =>
-                                    <StageHistory key={item.stage + item.date + (Math.random()*100)} data={item} />
+                                    <StageHistory 
+                                        key={item.stage + item.date + (Math.random()*100)} 
+                                        data={item} />
                                 )
                             }
                         </div>
