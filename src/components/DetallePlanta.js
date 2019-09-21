@@ -1,9 +1,7 @@
 import React from 'react';
-import Stage from './Stage';
-import DateFormat from './DateFormat';
-import DaysBetween from './DaysBetween';
 import ConfigStage from './ConfigStage';
 import Configuration from '../config';
+import StageHistory from './StageHistory';
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
@@ -46,6 +44,21 @@ class DetallePlanta extends React.Component{
         });
     }
 
+    compare(a, b){
+        const date1 = new Date(a.date).getTime();
+        const date2 = new Date(b.date).getTime();
+        let comparison = 0;
+
+        if(date1 > date2){
+            comparison = -1;
+            console.log('a');
+        }else if(date1 < date2){
+            comparison = 1;
+            console.log('b');
+        }
+        return comparison;
+    }
+
     
 
     render(){
@@ -62,13 +75,9 @@ class DetallePlanta extends React.Component{
                         
                         <div id="stages-container">
                             {
-                                this.state.stages.map(item =>
-                                    <ul key={item.stage + item.date + (Math.random()*100)}>
-                                        <li><Stage stage={item.stage} /></li>
-                                        <li><DateFormat date={item.date} /> (<DaysBetween startDate={new Date(item.date)} endDate={new Date()} /> días)</li>
-                                        <div>{item.comment}</div>
-                                        <div>{(item.image) ? <img src={Configuration.url + '/' + item.image} width="100%" /> : '' }</div>
-                                    </ul>
+                                this.state.stages.sort(this.compare)
+                                .map(item =>
+                                    <StageHistory key={item.stage + item.date + (Math.random()*100)} data={item} />
                                 )
                             }
                         </div>

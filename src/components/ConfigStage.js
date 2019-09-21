@@ -57,6 +57,7 @@ class ConfigStage extends React.Component{
     onClickSubmit = () =>{
         const stage = this.state.new_stage;
         const date = this.state.new_date;
+
         const stages = [...this.state.stages];
         const newObject = {stage: stage, date: date};
         
