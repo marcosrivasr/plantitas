@@ -24,14 +24,11 @@ class App extends React.Component{
     this.setState({plantas: [...plantas]});
     this.setState({copia: [...this.state.plantas]});
 
-    //console.log(this.state.plantas);
-    console.log(Configuration);
   }
 
   async loadPlantitas(){
     const res = await fetch(Configuration.url + '/get', {method: 'GET', 'Content-type': 'text/json'})
     .then(res => res.json());
-
     return res;
   }
 

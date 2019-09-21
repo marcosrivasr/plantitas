@@ -2,6 +2,17 @@ body{
   padding: 0;
   margin: 0;
 }
+
+input, 
+select,
+textarea{
+  border: solid 1px #ccc;
+  border-radius: 3px;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+}
+
 .menu-container{
   background: black;
 }
@@ -42,6 +53,14 @@ body{
   width: 80%;
 }
 
+#status-container{
+  padding: 15px 0;
+}
+#status-container h2{
+  font-weight: bolder;
+  font-size: 24px;
+}
+
 .item{
   border: solid 1px #ccc;
   border-radius: 3px;
@@ -50,12 +69,17 @@ body{
   margin-bottom: 15px;
   width: 22%;
   text-align: center;
+  vertical-align: top;
 }
 .item .title{
   background-color: #eee;
   padding: 10px 0;
   border-bottom: solid 1px #ccc;
   font-weight: bolder;
+}
+.item .image{
+  height: 150px;
+  overflow: hidden;
 }
 .item .list-group-container .list-group-section{
   border-bottom: solid 1px #ccc;
@@ -82,10 +106,11 @@ body{
   color: #61dafb;
 }
 
-.search-container{
-  padding: 15px;
+.search-containerr{
+  padding: 15px 0;
+  margin: 0;
 }
-.search-container input[type=text]{
+.search-containerr input[type=text]{
   font-size: 15px;
   padding: 15px;
   width: 100%;
@@ -98,7 +123,6 @@ body{
 }
 
 .detalle-container #detalle-left-container{
-  
   box-sizing: border-box;
   display: inline-block;
   vertical-align: top;
@@ -111,10 +135,10 @@ body{
   text-align: center;
 }
 .detalle-container #detalle-right-container{
-  
+  box-sizing: border-box;
   display: inline-block;
   vertical-align: top;
-  padding: 15px 0;
+  padding: 15px;
   width: 64%;
 }
 
@@ -140,10 +164,26 @@ body{
 #config-stage-container .config-stage-item span{
   font-weight: bolder;
 }
-#config-stage-container .config-stage-item input, 
-#config-stage-container .config-stage-item select,
-#config-stage-container .config-stage-item textarea{
-  border: solid 1px #ccc;
-  padding: 10px;
-  width: 100%;
+
+
+.nuevo-container{
+  width: 400px;
+}
+
+@media only screen and (max-width: 900px){
+  .item{
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 700px){
+  .item{
+    width: 45%;
+  }
+}
+
+@media only screen and (max-width: 374px){
+  .item{
+    width: 100%;
+  }
 }

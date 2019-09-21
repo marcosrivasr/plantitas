@@ -1,5 +1,6 @@
 import React from 'react';
 import Configuration from '../config';
+import Button from 'react-bootstrap/Button';
 
 class NuevaPlanta extends React.Component{
 
@@ -9,25 +10,33 @@ class NuevaPlanta extends React.Component{
             name: '',
             type: '',
             stage: 0,
-            date: ''
+            date: '',
+            image: null
         };
+    }
+    handleFile = (e) =>{
+        this.setState({
+            [e.target.name]: e.target.files[0]
+        });
     }
 
     handleSubmit = (e) =>{
         e.preventDefault();
+        if(this.state.name.trim() === '' || this.state.type.trim() === ''){
+            alert('Completa los campos para continuar');
+            return false;
+        }
+        const formData = new FormData();
+        formData.append('name', this.state.name);
+        formData.append('type', this.state.type);
+        formData.append('stage', this.state.stage);
+        formData.append('date', this.state.date);
+        formData.append('image', this.state.image);
+
         fetch(Configuration.url + '/add', 
             {
                 method: 'POST', 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: this.state.name,
-                    type: this.state.type,
-                    stage: this.state.stage,
-                    date: this.state.date,
-                    image: this.state.image
-                })
+                body: formData
             })
         .then(res => res.json())
         .then(data => console.log(data));
@@ -44,15 +53,15 @@ class NuevaPlanta extends React.Component{
 
     render(){
         return(
-            <div id="main-container">
-                <form action="http://localhost:3001/add" method="post" encType="multipart/form-data">
+            <div className="main-container nuevo-container">
+                <form action="http://localhost:3001/add" method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
                     <p>
                         Nombre de planta: <br/>
-                        <input type="text" name="name" onKeyUp={this.handleChange} autoComplete="off" />
+                        <input type="text" autoComplete="off" name="name" onKeyUp={this.handleChange} autoComplete="off" />
                     </p>
                     <p>
                         Tipo de planta: <br/>
-                        <input type="text" name="type" onKeyUp={this.handleChange} />
+                        <input type="text" autoComplete="off" name="type" onKeyUp={this.handleChange} />
                     </p>
                     <p>
                         Etapa: <br/>
@@ -66,14 +75,14 @@ class NuevaPlanta extends React.Component{
                     </p>
                     <p>
                         Fecha: <br/>
-                        <input type="date" name="date" onChange={this.handleChange} />
+                        <input type="date" name="date" onChange={this.handleChange}  />
                     </p>
                     <p>
                         Imagen: <br/>
-                        <input type="file" name="image" onChange={this.handleChange} />
+                        <input type="file" name="image" onChange={this.handleFile} />
                     </p>
                     <p>
-                        <input type="submit" />
+                        <Button onClick={this.handleSubmit}>Crear nueva planta</Button>
                     </p> 
                 </form>
             </div>

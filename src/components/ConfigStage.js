@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from 'react-bootstrap/Button';
+import Configuration from '../config';
 
 class ConfigStage extends React.Component{
 
@@ -14,13 +15,15 @@ class ConfigStage extends React.Component{
             stages: [],
             new_stage: 0,
             new_date: '',
-            comment: ''
+            comment: '',
+            image: null,
+            new_image: null
         };
     }
 
     componentDidMount(){
         const id = this.props.itemId;
-        fetch('http://localhost:3001/get/' + id)
+        fetch(Configuration.url + '/get/' + id)
         .then(res => res.json())
         .then(data => {
             this.setState({
@@ -45,20 +48,35 @@ class ConfigStage extends React.Component{
                 [e.target.name]: e.target.value
         });
     }
+    handleFile = (e) =>{
+        this.setState({
+            [e.target.name]: e.target.files[0]
+        });
+    }
 
     onClickSubmit = () =>{
         const stage = this.state.new_stage;
         const date = this.state.new_date;
         const stages = [...this.state.stages];
         const newObject = {stage: stage, date: date};
+        
+        //añadimos el nuevo objeto al arreglo de etapas
         stages.push(newObject);
 
-        fetch('http://localhost:3001/add-stage', {
+        //datos para la solicitud http
+        const formData = new FormData();
+        formData.append('image', this.state.new_image);
+        formData.append('id', this.state.id);
+        formData.append('stage', stage);
+        formData.append('date', date);
+        formData.append('comment', this.state.comment);
+
+        console.log(stage);
+
+        fetch(Configuration.url + '/add-stage', {
             method: 'post', 
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({id: this.state.id, stage: stage, date: date})
+            //body: JSON.stringify({id: this.state.id, stage: stage, date: date})
+            body: formData
         })
         .then(res => res.text())
         .then(data => console.log(data));
@@ -87,7 +105,7 @@ class ConfigStage extends React.Component{
                     </select> 
                 </div>
                 <div className="config-stage-item">
-                    <input type="file"/>
+                    <input type="file" name="new_image" onChange={this.handleFile}/>
                 </div>
                 <div className="config-stage-item">
                     <input type="date" name="new_date" onChange={this.handleChange} />

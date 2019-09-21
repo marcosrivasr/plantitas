@@ -19,10 +19,9 @@ class SmartSearch extends React.Component{
   
     render(){
       return(
-        <div className="search-container">
+        <div className="search-containerr">
           <form onSubmit={this.handleSubmit}>
-            <input type="text" onKeyUp={this.handleChange} placeholder="Buscar..."/>
-            <Button>Buscar</Button>
+            <input type="text" onKeyUp={this.handleChange} placeholder="Buscar en tu huerto..."/>
           </form>
         </div>
       );

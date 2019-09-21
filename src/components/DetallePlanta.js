@@ -3,6 +3,7 @@ import Stage from './Stage';
 import DateFormat from './DateFormat';
 import DaysBetween from './DaysBetween';
 import ConfigStage from './ConfigStage';
+import Configuration from '../config';
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
@@ -22,10 +23,8 @@ class DetallePlanta extends React.Component{
             new_date: ''
         };
     }
-
     componentDidMount(){
-        /*
-        fetch('http://localhost:3001/get/' + this.props.match.params.id)
+        fetch(Configuration.url + '/get/' + this.props.match.params.id)
         .then(res => res.json())
         .then(data => {
             this.setState({
@@ -37,7 +36,6 @@ class DetallePlanta extends React.Component{
             });
         })
         .catch(err => console.error(err));
-        */
     }
 
     
@@ -68,13 +66,28 @@ class DetallePlanta extends React.Component{
                                     <ul key={item.stage + item.date + (Math.random()*100)}>
                                         <li><Stage stage={item.stage} /></li>
                                         <li><DateFormat date={item.date} /> (<DaysBetween startDate={new Date(item.date)} endDate={new Date()} /> días)</li>
+                                        <div>{item.comment}</div>
+                                        <div>{(item.image) ? <img src={Configuration.url + '/' + item.image} width="100%" /> : '' }</div>
                                     </ul>
                                 )
                             }
                         </div>
                     </Tab>
                     <Tab eventKey="water" title="Riego">
-                        Dos
+                    <div className="timeline">
+                        <div className="container left">
+                            <div className="content">
+                            <h2>2017sss</h2>
+                            <p>Lorem ipsum..</p>
+                            </div>
+                        </div>
+                        <div className="container">
+                            <div className="content">
+                            <h2>2016</h2>
+                            <p>Lorem ipsum..</p>
+                            </div>
+                        </div>
+                    </div>
                     </Tab>
                 </Tabs>
                     
