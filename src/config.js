@@ -1,5 +1,5 @@
 const Configuration = {
-    url: 'http://localhost:3001'
+    url: 'http://192.168.0.12:3001'
 };
 
 export default Configuration;

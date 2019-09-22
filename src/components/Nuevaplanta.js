@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button';
 
 class NuevaPlanta extends React.Component{
 
-    constructor(props){
-        super(props);
+    constructor(props, context){
+        super(props, context);
         this.state = {
             name: '',
             type: '',
@@ -22,7 +22,7 @@ class NuevaPlanta extends React.Component{
 
     handleSubmit = (e) =>{
         e.preventDefault();
-        if(this.state.name.trim() === '' || this.state.type.trim() === ''){
+        if(this.state.name.trim() === '' || this.state.type.trim() === '' || this.state.date.trim() === ''){
             alert('Completa los campos para continuar');
             return false;
         }
@@ -39,7 +39,9 @@ class NuevaPlanta extends React.Component{
                 body: formData
             })
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then(data =>{
+            
+        });
     }
 
     handleChange = (e) =>{

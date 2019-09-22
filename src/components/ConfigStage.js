@@ -47,6 +47,11 @@ class ConfigStage extends React.Component{
         const newComment = this.state.new_comment;
         const newImage = this.state.new_image;
 
+        if(newDate.trim() === '' || newComment.trim() === ''){
+            alert('Completa los campos para continuar');
+            return false;
+        }
+
         // create a new object with those values
         const newObject = {
             stage: newStage, 
@@ -68,11 +73,13 @@ class ConfigStage extends React.Component{
             method: 'post', 
             body: formData
         })
-        .then(res => res.text())
-        .then(data => console.log(data));
-
-        // send the new object to the parent to update view
-        this.props.onAddStage(newObject);
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            newObject.image = data.image_name;
+            // send the new object to the parent to update view
+            this.props.onAddStage(newObject);
+        });
     }
 
     render(){
@@ -104,6 +111,7 @@ class ConfigStage extends React.Component{
                 </div>
                 <div className="config-stage-item">
                     <Button onClick={this.onClickSubmit}>Añadir nueva etapa</Button>
+                    <Button variant="link" onClick={this.onClick}>Cancelar</Button>
                 </div>
             </div>
         );

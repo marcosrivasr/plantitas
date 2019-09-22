@@ -7,7 +7,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
 
-import placeholder from '../planta.jpg';
+import Placeholder from '../planta.jpg';
 
 class DetallePlanta extends React.Component{
     constructor(props){
@@ -16,6 +16,7 @@ class DetallePlanta extends React.Component{
             name: '',
             date: '',
             type: '',
+            image: '',
             stages: []
         };
     }
@@ -28,8 +29,10 @@ class DetallePlanta extends React.Component{
                 name: data.name,
                 date: data.date,
                 type: data.type,
-                stages: data.stages
+                stages: [...data.stages]
             });
+
+            this.setImage();
         })
         .catch(err => console.error(err));
     }
@@ -38,7 +41,7 @@ class DetallePlanta extends React.Component{
 
     handleChange = (e) =>{
         this.setState({
-                [e.target.name]: e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
@@ -47,12 +50,10 @@ class DetallePlanta extends React.Component{
         const date2 = new Date(b.date).getTime();
         let comparison = 0;
 
-        if(date1 > date2){
+        if(date1 > date2 || (date1 == date2)){
             comparison = -1;
-            console.log('a');
-        }else if(date1 < date2){
+        }else if((date1 < date2)) {
             comparison = 1;
-            console.log('b');
         }
         return comparison;
     }
@@ -63,14 +64,24 @@ class DetallePlanta extends React.Component{
         this.setState({stages: [...stages]});
     }
 
+    setImage(){
+        const n = this.state.stages.length;
+        const stage = this.state.stages[0];
+        if(stage.image){
+            //return stage.image;
+            this.setState({image: stage.image});
+        }
+    }
+
     
 
     render(){
         return(
             <div className="main-container detalle-container">
                 <div id='detalle-left-container'>
+                    
+                    <div className="image" style={{ backgroundImage: `url(${(this.state.image === '' ? 'backgroundImage: ' + Placeholder : Configuration.url + '/' + this.state.image)})`}}></div>
                     <h1>{this.state.name}</h1>
-                    <img src={placeholder} width="100%" />
                 </div>
                 <div id="detalle-right-container">
                 <Tabs defaultActiveKey="stages" id="uncontrolled-tab-example">
@@ -92,20 +103,9 @@ class DetallePlanta extends React.Component{
                         </div>
                     </Tab>
                     <Tab eventKey="water" title="Riego">
-                    <div className="timeline">
-                        <div className="container left">
-                            <div className="content">
-                            <h2>2017sss</h2>
-                            <p>Lorem ipsum..</p>
-                            </div>
+                        <div>
+                            En construcción...
                         </div>
-                        <div className="container">
-                            <div className="content">
-                            <h2>2016</h2>
-                            <p>Lorem ipsum..</p>
-                            </div>
-                        </div>
-                    </div>
                     </Tab>
                 </Tabs>
                     

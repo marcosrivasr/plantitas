@@ -65,9 +65,9 @@ textarea{
   border: solid 1px #ccc;
   border-radius: 3px;
   display: inline-block;
-  margin-right: 3%;
+  margin: 0 1%;
   margin-bottom: 15px;
-  width: 22%;
+  width: 23%;
   text-align: center;
   vertical-align: top;
 }
@@ -133,6 +133,14 @@ textarea{
 .detalle-container #detalle-left-container h1{
   font-weight: bold;
   text-align: center;
+}
+.detalle-container #detalle-left-container .image{
+  border-radius: 50%;
+  border: solid 10px #eee;
+  background-position: center center;
+  background-size: 100%;
+  width: 250px;
+  height: 250px;
 }
 .detalle-container #detalle-right-container{
   box-sizing: border-box;
@@ -200,20 +208,45 @@ textarea{
   border-radius: 3px;
 }
 
-@media only screen and (max-width: 900px){
+@media only screen and (max-width: 850px){
   .item{
-    width: 30%;
+    width: 31%;
   }
 }
 
 @media only screen and (max-width: 700px){
-  .item{
-    width: 45%;
+
+  .main-container{
+    width: 100%;
+  }
+
+  .detalle-container{
+    width: 100%;
+  }
+  .detalle-container #detalle-left-container h1{
+    font-size: 100%;
   }
 }
 
-@media only screen and (max-width: 374px){
+@media only screen and (max-width: 500px){
+  .detalle-container #detalle-left-container, .detalle-container #detalle-right-container{
+    display: block;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 450px){
+  .item{
+    width: 48%;
+  }
+}
+
+@media only screen and (max-width: 375px){
+  .main-container{
+    padding: 15px;
+  }
   .item{
     width: 100%;
   }
+
 }

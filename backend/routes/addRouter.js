@@ -34,8 +34,9 @@ const addRouter = (req, res) =>{
         });
     })
     .on('fileBegin', (name, file) =>{
-        file.path = require('path').resolve(__dirname, '..') + '/uploads/' + file.name;
-        object.imageUrl = file.name;
+        const newName = crypto.createHash('sha256').update(new Date().toString() + file.name).digest('hex') + file.name;
+        file.path = __dirname + '/../uploads/' + newName;
+        _imageUrl = newName;
     });;
 }
 
