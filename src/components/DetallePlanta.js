@@ -31,7 +31,7 @@ class DetallePlanta extends React.Component{
                 type: data.type,
                 stages: [...data.stages]
             });
-
+            // actualiza la url de la imagen
             this.setImage();
         })
         .catch(err => console.error(err));
