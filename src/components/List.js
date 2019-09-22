@@ -32,6 +32,7 @@ class List extends React.Component{
                   date={item.date}
                   stage={item.stages[item.stages.length-1].stage}
                   image={item.stages[item.stages.length-1].image}
+                  irrigation={(item.irrigation.length == 0)? 'apagado': 'cada ' + item.irrigation[item.irrigation.length-1].days + ' días'}
                   onDeleteItem={this.onDeleteItem}
                    />
               )

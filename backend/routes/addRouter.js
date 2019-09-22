@@ -22,7 +22,8 @@ const addRouter = (req, res) =>{
                     stage: object.stage, 
                     date: object.date,
                     image: object.imageUrl
-                }]
+                }],
+            water_turn_on: false
         });
 
         planta.save()

@@ -29,6 +29,7 @@ class App extends React.Component{
   async loadPlantitas(){
     const res = await fetch(Configuration.url + '/get', {method: 'GET', 'Content-type': 'text/json'})
     .then(res => res.json());
+    console.log(res);
     return res;
   }
 

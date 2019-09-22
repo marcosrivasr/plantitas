@@ -1,11 +1,12 @@
 import React from 'react';
 import ConfigStage from './ConfigStage';
+import WaterConfig from './WaterConfig';
 import Configuration from '../config';
 import StageHistory from './StageHistory';
+import WaterHistory from './WaterHistory';
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import Button from 'react-bootstrap/Button';
 
 import Placeholder from '../planta.jpg';
 
@@ -17,7 +18,9 @@ class DetallePlanta extends React.Component{
             date: '',
             type: '',
             image: '',
-            stages: []
+            stages: [],
+            water_turn_on: false,
+            irrigation: []
         };
     }
     componentDidMount(){
@@ -29,7 +32,9 @@ class DetallePlanta extends React.Component{
                 name: data.name,
                 date: data.date,
                 type: data.type,
-                stages: [...data.stages]
+                stages: [...data.stages],
+                water_turn_on: data.water_turn_on,
+                irrigation: [...data.irrigation]
             });
             // actualiza la url de la imagen
             this.setImage();
@@ -46,8 +51,8 @@ class DetallePlanta extends React.Component{
     }
 
     compare(a, b){
-        const date1 = new Date(a.date).getTime();
-        const date2 = new Date(b.date).getTime();
+        const date1 = new Date(a.start_date).getTime();
+        const date2 = new Date(b.start_date).getTime();
         let comparison = 0;
 
         if(date1 > date2 || (date1 == date2)){
@@ -78,15 +83,13 @@ class DetallePlanta extends React.Component{
     render(){
         return(
             <div className="main-container detalle-container">
-                <div id='detalle-left-container'>
-                    
-                    <div className="image" style={{ backgroundImage: `url(${(this.state.image === '' ? 'backgroundImage: ' + Placeholder : Configuration.url + '/' + this.state.image)})`}}></div>
+                <div id='detalle-left-container'> 
+                    <div className="image" style={{ backgroundImage: `url(${(this.state.image === '' ?  Placeholder : Configuration.url + '/' + this.state.image)})`}}></div>
                     <h1>{this.state.name}</h1>
                 </div>
                 <div id="detalle-right-container">
                 <Tabs defaultActiveKey="stages" id="uncontrolled-tab-example">
                     <Tab eventKey="stages" title="Etapas">
-
                         <ConfigStage 
                             itemId={this.props.match.params.id} 
                             onAddStage={this.onAddStage} />
@@ -103,8 +106,20 @@ class DetallePlanta extends React.Component{
                         </div>
                     </Tab>
                     <Tab eventKey="water" title="Riego">
+                        <WaterConfig 
+                            id={this.props.match.params.id}
+                            isWaterTurnedOn={this.state.water_turn_on} />
                         <div>
-                            En construcción...
+                            {
+                                this.state.irrigation.sort(this.compare)
+                                .map(item =>
+                                    <WaterHistory 
+                                        key={item._id} 
+                                        id={this.props.match.params.id}
+                                        taskId={item._id}
+                                        data={item} />
+                                )
+                            }
                         </div>
                     </Tab>
                 </Tabs>

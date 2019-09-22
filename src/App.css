@@ -138,7 +138,7 @@ textarea{
   border-radius: 50%;
   border: solid 10px #eee;
   background-position: center center;
-  background-size: 100%;
+  background-size: 140%;
   width: 250px;
   height: 250px;
 }
@@ -173,6 +173,69 @@ textarea{
 #config-stage-container .config-stage-item span{
   font-weight: bolder;
 }
+
+#water-config-container, #water-config-collapsed-container{
+  border: solid 1px #ccc;
+  border-radius: 3px;
+  margin: 10px 0;
+  padding: 15px;
+}
+
+#water-config-container > div{
+  display: inline-block;
+}
+#water-config-container div:first-child{
+  width: 81%;
+  margin-right: 10px;
+}
+
+.water-story-item{
+  border: solid 1px #ccc;
+  box-shadow: 1px 1px #eee;
+  border-radius: 3px;
+  margin: 15px 0;
+  padding: 15px;
+}
+.water-story-item .icon-progress{
+  color: #007bff;
+  display:inline-block; 
+  vertical-align: middle;
+
+  animation-name: rotation;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.water-story-item .icon-completed{
+  color: #069c4a;
+  display:inline-block; 
+  vertical-align: middle;
+}
+.water-story-item .icon-completed-late{
+  color: #ff0055;
+  display:inline-block; 
+  vertical-align: middle;
+}
+.water-story-item.active{
+  border: solid 1px #007bff;
+}
+.water-story-item.completed-late{
+  border: solid 1px #ff0055;
+}
+.water-story-item.completed{
+
+  border: solid 1px #069c4a;
+}
+@keyframes rotation {
+  from {transform:rotateZ(0deg);}
+  to {transform: rotateZ(360deg);}
+}
+.water-story-item .date{
+  display:inline-block; 
+  vertical-align: middle;
+  padding: 0 10px;
+}
+
 
 
 .nuevo-container{

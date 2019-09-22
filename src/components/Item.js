@@ -49,7 +49,7 @@ class Item extends React.Component{
           <div className="list-group-container">
             <div className="list-group-section">Edad: <DaysBetween startDate={new Date(this.props.date)} endDate={new Date()} /> días</div>
             <div className="list-group-section">Etapa: <Stage stage={this.props.stage} /></div>
-            <div className="list-group-section">Riego: cada 2 días</div>
+            <div className="list-group-section">Riego: {this.props.irrigation}</div>
             <div className="list-group-section"><Button onClick={this.handleDelete}>Eliminar planta</Button></div>
           </div>
         </div>

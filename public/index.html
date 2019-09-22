@@ -46,4 +46,54 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  
+  <script>
+  /*  function isPushNotificationSupported() {
+      return "serviceWorker" in navigator && "PushManager" in window;
+    }
+    function requestPermission() {
+      return new Promise(function(resolve, reject) {
+        const permissionResult = Notification.requestPermission(function(result) {
+          // Handling deprecated version with callback.
+          resolve(result);
+        });
+
+        if (permissionResult) {
+          permissionResult.then(resolve, reject);
+        }
+      })
+      .then(function(permissionResult) {
+        if (permissionResult !== 'granted') {
+          throw new Error('Permission not granted.');
+        }
+      });
+    }
+    requestPermission();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+        .then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful');
+          var subscribeOptions = {
+            userVisibleOnly: true,
+            applicationServerKey: btoa(
+              'BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDzkrxZJjSgSnfckjBJuBkr3qBUYIHBQFLXYp5Nksh8U'
+            )
+          };
+
+          return registration.pushManager.subscribe(subscribeOptions);
+        })
+        .then((pushNotification) =>{
+          console.log('PushSubscription: ', JSON.stringify(pushSubscription));
+          return pushSubscription;
+        })
+        .catch(err =>{
+          console.error(err.message);
+        });
+      });
+    }*/
+    
+  </script>
 </html>

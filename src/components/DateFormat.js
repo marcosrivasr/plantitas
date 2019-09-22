@@ -13,8 +13,8 @@ class DateFormat extends React.Component{
         if (mm < 10) {
         mm = '0' + mm;
         } 
-        var today = dd + '/' + mm + '/' + yyyy;
-        return today;
+        var res = dd + '/' + mm + '/' + yyyy;
+        return res;
     }
 
     render(){

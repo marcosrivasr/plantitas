@@ -8,12 +8,16 @@ let Planta = new Schema({
     type: String,
     stages: [
         {stage: Number, date: Date, image: String, comment: String}
+    ],
+    water_turn_on: Boolean,
+    irrigation: [
+        {start_date: Date, days: Number, days_checked: Number, status: String}
     ]
 }, {toObject: {
-    virtuals: true
+        virtuals: true
     },
     toJSON: {
-    virtuals: true 
+        virtuals: true 
     }});
 
 
