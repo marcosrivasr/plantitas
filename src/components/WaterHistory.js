@@ -47,9 +47,9 @@ class WaterHistory extends React.Component{
                 period: period
             })
         })
-        .then(res => res.text())
+        .then(res => res.json())
         .then(data => {
-            console.log(data);
+            
         })
         .catch(err =>{
             console.error(err);
@@ -59,11 +59,24 @@ class WaterHistory extends React.Component{
 
     renderInProgress(){
         return(
+            (this.props.data.days < this.state.days) ?
+            <div className="water-story-item active-late">
+                <FontAwesomeIcon icon={faSync} className="icon-progress" size="2x"/>
+                <div className="date">
+                    <DateFormat 
+                        date={this.props.data.start_date} /> (hace <DaysBetween startDate={new Date(this.props.data.start_date)} endDate={new Date()} /> días) Riego cada {this.props.data.days} días</div>
+                        {(this.state.days >= this.props.data.days) ?
+                            <Button onClick={this.onCompleteTask}>Completar</Button>
+                        :
+                        ''
+                        }  
+            </div>
+            :
             <div className="water-story-item active">
                 <FontAwesomeIcon icon={faSync} className="icon-progress" size="2x"/>
                 <div className="date">
                     <DateFormat 
-                        date={this.props.data.start_date} /> (<DaysBetween startDate={new Date(this.props.data.start_date)} endDate={new Date()} /> días)</div>
+                        date={this.props.data.start_date} /> (hace <DaysBetween startDate={new Date(this.props.data.start_date)} endDate={new Date()} /> días) Riego cada {this.props.data.days} días</div>
                         {(this.state.days >= this.props.data.days) ?
                             <Button onClick={this.onCompleteTask}>Completar</Button>
                         :

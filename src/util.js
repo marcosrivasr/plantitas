@@ -17,6 +17,10 @@ class Util{
         // Convert back to days and return
         return Math.round(difference_ms/ONE_DAY) ;
     };
+
+    showEmoji = (emoji) =>{
+        return '&#x1F96D;';
+    };
 }
 
 export default Util;

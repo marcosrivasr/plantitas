@@ -15,19 +15,22 @@ class WaterConfig extends React.Component{
     }
 
     onClick = (e) =>{
+        const obj = {
+            id: this.props.id,
+            days: this.state.days,
+            start_date: new Date()
+        };
         fetch(Configuration.url + '/add-water',
         {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                id: this.props.id,
-                days: this.state.days,
-                start_date: new Date()
-            })
+            body: JSON.stringify(obj)
         })
-        .then(res => res.text())
+        .then(res => res.json())
         .then(data => {
-            console.log(data);
+            if(data.response === 'success'){
+                this.props.onAddWater(data.data);
+            }
         })
         .catch(err =>{
             console.error(err);

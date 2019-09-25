@@ -139,6 +139,7 @@ textarea{
   border: solid 10px #eee;
   background-position: center center;
   background-size: 140%;
+  margin: 0 auto;
   width: 250px;
   height: 250px;
 }
@@ -216,15 +217,18 @@ textarea{
   display:inline-block; 
   vertical-align: middle;
 }
+.water-story-item.active-late{  
+  border: solid 2px #ff761b;
+}
 .water-story-item.active{
-  border: solid 1px #007bff;
+  border: solid 2px #007bff;
 }
 .water-story-item.completed-late{
-  border: solid 1px #ff0055;
+  border: solid 2px #ff0055;
 }
 .water-story-item.completed{
 
-  border: solid 1px #069c4a;
+  border: solid 2px #069c4a;
 }
 @keyframes rotation {
   from {transform:rotateZ(0deg);}

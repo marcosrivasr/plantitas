@@ -22,11 +22,13 @@ const completeWaterTaskRouter = (req, res) =>{
 
     console.log(id, taskId, days, period);
 
+    const status = (days <= period)? 'completed': 'completed late';
+
     PlantaModel.updateOne(
         {'irrigation._id': taskId},
         {$set: {
             'irrigation.$.days_checked': days,
-            'irrigation.$.status': 'completed'
+            'irrigation.$.status': status
         }},
         (err, res) =>{
             if(err) console.error(err.message);
