@@ -9,8 +9,7 @@ class WaterConfig extends React.Component{
         this.state = {
             days: 2,
             start_date: '',
-            days_checked: 0,
-            irrigation:[]
+            days_checked: 0
         };
     }
 
@@ -43,12 +42,30 @@ class WaterConfig extends React.Component{
         });
     }
 
+    onTurnOff = () =>{
+        fetch(Configuration.url + '/turnoff-water', 
+        {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: this.props.id})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.response === 'success'){
+                this.props.onTurnOff();
+                //this.setState({is_water});
+            }
+            
+        })
+        .catch(err =>console.error(err.message));
+    }
+
     render(){
         return(
             (this.props.isWaterTurnedOn) 
             ? 
                 <div id="water-config-collapsed-container">
-                    Programación de riego en progreso <Button>Cambiar</Button> <Button>Apagar</Button>
+                    Programación de riego en progreso <Button onClick={this.onTurnOff}>Apagar</Button>
                 </div>
             : 
             <div id="water-config-container">

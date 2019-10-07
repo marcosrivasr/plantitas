@@ -49,7 +49,10 @@ class WaterHistory extends React.Component{
         })
         .then(res => res.json())
         .then(data => {
-            
+            if(data.response === 'success'){
+                console.log('yei!');
+                this.props.onCompleteTask();
+            }
         })
         .catch(err =>{
             console.error(err);
@@ -63,8 +66,8 @@ class WaterHistory extends React.Component{
             <div className="water-story-item active-late">
                 <FontAwesomeIcon icon={faSync} className="icon-progress" size="2x"/>
                 <div className="date">
-                    <DateFormat 
-                        date={this.props.data.start_date} /> (hace <DaysBetween startDate={new Date(this.props.data.start_date)} endDate={new Date()} /> días) Riego cada {this.props.data.days} días</div>
+                    Riego tardio desde hace {Math.abs(this.props.data.days - this.state.days)} días
+                </div>
                         {(this.state.days >= this.props.data.days) ?
                             <Button onClick={this.onCompleteTask}>Completar</Button>
                         :
@@ -75,8 +78,13 @@ class WaterHistory extends React.Component{
             <div className="water-story-item active">
                 <FontAwesomeIcon icon={faSync} className="icon-progress" size="2x"/>
                 <div className="date">
-                    <DateFormat 
-                        date={this.props.data.start_date} /> (hace <DaysBetween startDate={new Date(this.props.data.start_date)} endDate={new Date()} /> días) Riego cada {this.props.data.days} días</div>
+                    {(this.props.data.days - this.state.days > 0)?
+                        `Próximo riego en ${this.props.data.days - this.state.days} días`
+                        :
+                        'Hoy te toca riego'
+                    }
+                    
+                    </div>
                         {(this.state.days >= this.props.data.days) ?
                             <Button onClick={this.onCompleteTask}>Completar</Button>
                         :
@@ -92,15 +100,16 @@ class WaterHistory extends React.Component{
             <div className="water-story-item completed-late">
                 <FontAwesomeIcon icon={faExclamation} className="icon-completed-late" size="2x"/>
                 <div className="date">
-                    <DateFormat 
-                        date={this.props.data.start_date} /> (<DaysBetween onDays={this.onChangeDaysBetween} startDate={new Date(this.props.data.start_date)} endDate={new Date()} /> días)</div>
+                    Completado tarde hace <DaysBetween onDays={this.onChangeDaysBetween} startDate={new Date(this.props.data.start_date)} endDate={new Date()} /> días
+    
+                </div>
             </div>
             :
             <div className="water-story-item completed">
                 <FontAwesomeIcon icon={faCheck} className="icon-completed" size="2x"/>
                 <div className="date">
-                    <DateFormat 
-                        date={this.props.data.start_date} /> (<DaysBetween onDays={this.onChangeDaysBetween} startDate={new Date(this.props.data.start_date)} endDate={new Date()} /> días)</div>
+                    Completado hace <DaysBetween onDays={this.onChangeDaysBetween} startDate={new Date(this.props.data.start_date)} endDate={new Date()} /> días
+                </div>
             </div>
         );
     }

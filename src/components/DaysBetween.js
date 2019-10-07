@@ -1,5 +1,4 @@
 import React from 'react';
-import { faHospitalAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 

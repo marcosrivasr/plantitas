@@ -14,6 +14,7 @@ const deleteByIdRouter = require('./routes/deleteByIdRouter');
 const addStageRouter = require('./routes/addStageRouter');
 const addWaterRouter = require('./routes/addWaterRouter');
 const completeWaterTaskRouter = require('./routes/completeWaterTaskRouter');
+const turnOffWaterRouter = require('./routes/turnOffWaterRouter');
 
 
 const PORT = 3001;
@@ -44,6 +45,7 @@ app.get('/delete/:id', deleteByIdRouter);
 app.post('/add-stage', addStageRouter);
 app.post('/add-water', addWaterRouter);
 app.post('/complete-water-task', completeWaterTaskRouter);
+app.post('/turnoff-water', turnOffWaterRouter);
 //add.get('/delete-stage/:id', deleteStagebyIdRouter);
 
 app.listen(PORT, () =>{

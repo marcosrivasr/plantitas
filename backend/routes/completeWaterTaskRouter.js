@@ -8,8 +8,13 @@ createNewTask = (id, period, req, res) =>{
             water_turn_on: true
         },
         (err, success) =>{
-            if(err) console.log(err.red);
+            if(err){
+                console.log(err.red);
+                res.json({response: 'failed', error: err});
+            }
+            
             console.log('Riego actualizado', '****************');
+            res.json({response: 'success'});
         }
     );
 }
@@ -30,12 +35,15 @@ const completeWaterTaskRouter = (req, res) =>{
             'irrigation.$.days_checked': days,
             'irrigation.$.status': status
         }},
-        (err, res) =>{
-            if(err) console.error(err.message);
+        (err, success) =>{
+            if(err){
+                console.error(err.message);
+            } 
 
-            console.log(res);
+            console.log(success);
 
             createNewTask(id, period, req, res);
+            //res.json({response: 'success'});
         }
     );
 }

@@ -59,7 +59,7 @@ class NuevaPlanta extends React.Component{
                 <form action="http://localhost:3001/add" method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
                     <p>
                         Nombre de planta: <br/>
-                        <input type="text" autoComplete="off" name="name" onKeyUp={this.handleChange} autoComplete="off" />
+                        <input type="text" autoComplete="off" name="name" onKeyUp={this.handleChange}  />
                     </p>
                     <p>
                         Tipo de planta: <br/>

@@ -43,7 +43,7 @@ class Item extends React.Component{
           <div className="title">{this.props.name}</div>
           <div className="image">
             <a href={'/ver-planta/' + this.props.id}>
-            <img src={(this.props.image) ? Configuration.url + '/' + this.props.image : Placeholder} width="100%" />
+            <img alt="" src={(this.props.image) ? Configuration.url + '/' + this.props.image : Placeholder} width="100%" />
             </a>
           </div>
           <div className="list-group-container">

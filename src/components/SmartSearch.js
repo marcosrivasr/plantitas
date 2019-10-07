@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+
 
 class SmartSearch extends React.Component{
     constructor(props){
@@ -15,6 +15,7 @@ class SmartSearch extends React.Component{
     handleChange = (e) =>{
       this.setState({value: e.target.value});
       this.props.onSearch(e.target.value);
+      console.log(e.target.value);
     }
   
     render(){

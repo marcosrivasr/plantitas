@@ -23,8 +23,17 @@ class DetallePlanta extends React.Component{
             water_turn_on: false,
             irrigation: []
         };
+        Array.prototype.removeIf = function(callback) {
+            var i = this.length;
+            while (i--) {
+                if (callback(this[i], i)) {
+                    this.splice(i, 1);
+                }
+            }
+        };
     }
-    componentDidMount(){
+
+    loadData(){
         fetch(Configuration.url + '/get/' + this.props.match.params.id)
         .then(res => res.json())
         .then(data => {
@@ -42,6 +51,9 @@ class DetallePlanta extends React.Component{
         })
         .catch(err => console.error(err));
     }
+    componentDidMount(){
+        this.loadData();
+    }
 
     
 
@@ -56,7 +68,7 @@ class DetallePlanta extends React.Component{
         const date2 = new Date(b.date).getTime();
         let comparison = 0;
 
-        if(date1 > date2 || (date1 == date2)){
+        if(date1 > date2 || (date1 === date2)){
             comparison = -1;
         }else if((date1 < date2)) {
             comparison = 1;
@@ -68,7 +80,7 @@ class DetallePlanta extends React.Component{
         const date2 = new Date(b.start_date).getTime();
         let comparison = 0;
 
-        if(date1 > date2 || (date1 == date2)){
+        if(date1 >= date2){
             comparison = -1;
         }else if((date1 < date2)) {
             comparison = 1;
@@ -83,7 +95,6 @@ class DetallePlanta extends React.Component{
     }
 
     setImage(){
-        const n = this.state.stages.length;
         const stage = this.state.stages[0];
         if(stage.image){
             //return stage.image;
@@ -92,16 +103,22 @@ class DetallePlanta extends React.Component{
     }
 
     onAddWater = (obj) =>{
-        /*
-        key={item._id} 
-        id={this.props.match.params.id}
-        taskId={item._id}
-        data={item} />
-        */
         const items = [...this.state.irrigation];
         items.push(obj[obj.length - 1]);
         this.setState({irrigation: [...items], water_turn_on: true});
         
+    }
+
+    onTurnOff = () =>{
+        const items = [...this.state.irrigation];
+        items.removeIf((item, i) =>{
+            return item.status === 'in progress';
+        });
+        this.setState({irrigation: [...items], water_turn_on: false});
+    }
+
+    onCompleteTask = () =>{
+        this.loadData();
     }
 
     
@@ -135,7 +152,8 @@ class DetallePlanta extends React.Component{
                         <WaterConfig 
                             id={this.props.match.params.id}
                             isWaterTurnedOn={this.state.water_turn_on}
-                            onAddWater={this.onAddWater} />
+                            onAddWater={this.onAddWater}
+                            onTurnOff={this.onTurnOff} />
                         <div>
                             {
                                 this.state.irrigation.sort(this.compareWater)
@@ -144,7 +162,8 @@ class DetallePlanta extends React.Component{
                                         key={item._id} 
                                         id={this.props.match.params.id}
                                         taskId={item._id}
-                                        data={item} />
+                                        data={item}
+                                        onCompleteTask={this.onCompleteTask} />
                                 )
                             }
                         </div>

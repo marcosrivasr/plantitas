@@ -1,9 +1,6 @@
 import React from 'react';
 
 class Stage extends React.Component{
-    constructor(props){
-        super(props);
-    }
 
     getStage = (stage) =>{
         let name = ''

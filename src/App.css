@@ -60,6 +60,14 @@ textarea{
   font-weight: bolder;
   font-size: 24px;
 }
+#status-container .group{
+  border: solid 1px #ccc;
+  display: inline-block;
+  padding: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
 
 .item{
   border: solid 1px #ccc;
@@ -309,8 +317,13 @@ textarea{
 }
 
 @media only screen and (max-width: 375px){
-  .main-container{
-    padding: 15px;
+  .detalle-container #detalle-left-container h1{
+    font-size: 1.5em;
+    padding: 20px 0;
+  }
+  .detalle-container #detalle-left-container .image{
+    width: 200px;
+    height: 200px;
   }
   .item{
     width: 100%;

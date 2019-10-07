@@ -2,6 +2,11 @@ const formidable    = require('formidable');
 const PlantaModel        = require('../model');
 const crypto = require('crypto');
 
+const createName = (name) =>{
+   return crypto.createHash('sha256').update(new Date().toString() + name).digest('hex') + name;
+}
+
+
 const addStageRouter = (req, res) =>{
     let id = '', _stage = '', _date = '', _comment = '', _imageUrl = '';
 
@@ -30,7 +35,7 @@ const addStageRouter = (req, res) =>{
         );
     })
     .on('fileBegin', (name, file) =>{
-        const newName = crypto.createHash('sha256').update(new Date().toString() + file.name).digest('hex') + file.name;
+        const newName = createName(file.name);
         file.path = __dirname + '/../uploads/' + newName;
         _imageUrl = newName;
     });
