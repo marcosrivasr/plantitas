@@ -39,7 +39,7 @@ class Item extends React.Component{
   
     render(){
       return(
-        <div className="item">
+        <div className={(this.props.waterOn)? 'item water-active': 'item no-water'}>
           <div className="title">{this.props.name}</div>
           <div className="image">
             <a href={'/ver-planta/' + this.props.id}>

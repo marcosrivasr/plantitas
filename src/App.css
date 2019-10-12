@@ -70,7 +70,6 @@ textarea{
 }
 
 .item{
-  border: solid 1px #ccc;
   border-radius: 3px;
   display: inline-block;
   margin: 0 1%;
@@ -90,10 +89,17 @@ textarea{
   overflow: hidden;
 }
 .item .list-group-container .list-group-section{
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid inherit #ccc;
   border-top: solid 1px #ccc;
   margin-bottom: -1px;
   padding: 5px 0;
+}
+
+.item.water-active{
+  border: solid 2px #007bff;
+}
+.item.no-water{
+  border: solid 1px #ccc;
 }
 .App {
   text-align: center;
